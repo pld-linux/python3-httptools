@@ -38,7 +38,7 @@ httptools to wiązanie Pythona do parsera HTTP z nodejs.
 
 %prep
 %setup -q -n httptools-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 %py3_build build_ext \
