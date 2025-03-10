@@ -6,7 +6,7 @@ Summary:	Python binding for the nodejs HTTP parser
 Summary(pl.UTF-8):	Wiązanie Pythona do parsera HTTP z nodejs
 Name:		python3-httptools
 Version:	0.6.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/httptools/
