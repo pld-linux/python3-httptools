@@ -5,19 +5,17 @@
 Summary:	Python binding for the nodejs HTTP parser
 Summary(pl.UTF-8):	Wiązanie Pythona do parsera HTTP z nodejs
 Name:		python3-httptools
-Version:	0.6.1
-Release:	3
+Version:	0.6.4
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/httptools/
 Source0:	https://files.pythonhosted.org/packages/source/h/httptools/httptools-%{version}.tar.gz
-# Source0-md5:	cb8a0c39723c10bdcf8c13d364d60b7c
-Patch0:		httptools-tests-cr.patch
+# Source0-md5:	2935c69c18c12febdc918198e4cdd0d1
 URL:		https://pypi.org/project/httptools/
 BuildRequires:	http-parser-devel >= 2.9.4
 BuildRequires:	llhttp-devel >= 8.1.1
 BuildRequires:	python3-Cython >= 0.29.24
-BuildRequires:	python3-Cython < 0.30
 BuildRequires:	python3-modules >= 1:3.8
 BuildRequires:	python3-setuptools
 %if %{with tests}
@@ -38,7 +36,6 @@ httptools to wiązanie Pythona do parsera HTTP z nodejs.
 
 %prep
 %setup -q -n httptools-%{version}
-%patch -P 0 -p1
 
 %build
 %py3_build build_ext \
