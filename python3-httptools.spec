@@ -5,19 +5,19 @@
 Summary:	Python binding for the nodejs HTTP parser
 Summary(pl.UTF-8):	Wiązanie Pythona do parsera HTTP z nodejs
 Name:		python3-httptools
-Version:	0.6.4
-Release:	2
+Version:	0.7.1
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/httptools/
 Source0:	https://files.pythonhosted.org/packages/source/h/httptools/httptools-%{version}.tar.gz
-# Source0-md5:	2935c69c18c12febdc918198e4cdd0d1
+# Source0-md5:	29795416212f190abe5a18b3faacaaef
 URL:		https://pypi.org/project/httptools/
 BuildRequires:	http-parser-devel >= 2.9.4
 BuildRequires:	llhttp-devel >= 8.1.1
-BuildRequires:	python3-Cython >= 0.29.24
-BuildRequires:	python3-modules >= 1:3.8
-BuildRequires:	python3-setuptools
+BuildRequires:	python3-Cython >= 3.1.0
+BuildRequires:	python3-modules >= 1:3.9
+BuildRequires:	python3-setuptools >= 1:80.9.0
 %if %{with tests}
 BuildRequires:	python3-pytest
 %endif
@@ -25,7 +25,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 Requires:	http-parser >= 2.9.4
 Requires:	llhttp >= 8.1.1
-Requires:	python3-modules >= 1:3.8
+Requires:	python3-modules >= 1:3.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -49,7 +49,6 @@ ln -sf ../tests tests
 
 LC_ALL=C.UTF-8 \
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-PYTEST_PLUGINS= \
 PYTHONPATH=$(echo $(pwd)/lib.linux-*) \
 %{__python3} -m pytest tests
 %endif
@@ -58,6 +57,9 @@ PYTHONPATH=$(echo $(pwd)/lib.linux-*) \
 rm -rf $RPM_BUILD_ROOT
 
 %py3_install
+
+# Cython implementation, not used at runtime
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/httptools/parser/*.pyx
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -70,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/httptools/__pycache__
 %dir %{py3_sitedir}/httptools/parser
 %attr(755,root,root) %{py3_sitedir}/httptools/parser/*.cpython-*.so
+%{py3_sitedir}/httptools/parser/*.pxd
 %{py3_sitedir}/httptools/parser/*.py
+%{py3_sitedir}/httptools/parser/*.pyi
 %{py3_sitedir}/httptools/parser/__pycache__
 %{py3_sitedir}/httptools-%{version}-py*.egg-info
